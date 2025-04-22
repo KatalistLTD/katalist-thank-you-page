@@ -1,58 +1,100 @@
-import { FolderCode, MonitorCheck, Laptop, Wrench } from "lucide-react";
+import React, { useState } from "react";
+import services from "./ServiceDetails";
+import { motion, AnimatePresence } from "framer-motion";
+import { div } from "framer-motion/client";
 
-const services = [
-  {
-    icon: <Laptop size={36} />,
-    title: "Website Development",
-    desc: "We build fast, responsive, and modern websites tailored to your business needs.",
-  },
-  {
-    icon: <Wrench size={36} />,
-    title: "Repair & Maintenance",
-    desc: "Affordable and reliable repair for computers, networking, and IT infrastructure.",
-  },
-  {
-    icon: <MonitorCheck size={36} />,
-    title: "SEO Optimization",
-    desc: "Boost your online presence with expert SEO strategies that bring results.",
-  },
-  {
-    icon: <FolderCode size={36} />,
-    title: "System & Software Dev",
-    desc: "Custom software, ERPs, and solutions for businesses, schools, and organizations.",
-  },
-];
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0 },
+};
 
 const ServicesSection = () => {
+  const [selectedService, setSelectedService] = useState(null);
+
   return (
-    <section className="w-full px-6 py-20 text-gray-900 bg-white">
-      <div className="mx-auto text-center max-w-7xl">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#00ab9b]">Our Services</h2>
-        <p className="max-w-3xl mx-auto mb-12 text-lg text-gray-600">
+    <div id="services">
+      <section className="w-full px-6 py-20 text-gray-900 bg-white">
+      <motion.div
+        className="mx-auto text-center max-w-7xl"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        transition={{ staggerChildren: 0.2 }}
+      >
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold mb-4 text-[#00ab9b]"
+          variants={fadeUp}
+        >
+          Our Services
+        </motion.h2>
+        <motion.p
+          className="max-w-3xl mx-auto mb-12 text-lg text-gray-600"
+          variants={fadeUp}
+        >
           Explore a wide range of IT services crafted to grow your business and solve technical challenges with ease.
-        </p>
+        </motion.p>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={fadeUp}
               className="p-6 transition duration-300 transform bg-white shadow-lg rounded-2xl hover:shadow-xl hover:-translate-y-1"
             >
-              <div className="mb-4 flex items-center justify-center w-16 h-16 rounded-full bg-[#00ab9b]/10 text-[#00ab9b] mx-auto">
+              <div className="mb-4 flex items-center justify-center w-16 h-16 rounded-full bg-[#00ab9b]/10 text-[#00ab9b] mx-auto text-2xl">
                 {service.icon}
               </div>
               <h3 className="mb-2 text-xl font-semibold text-[#00ab9b]">{service.title}</h3>
               <p className="text-sm text-gray-600">{service.desc}</p>
-              <a href="https://katalistlimited.vercel.app/#services">
-                <button className="mt-4 text-[#00ab9b] font-medium hover:underline">
-                  View More →
-                </button>
-              </a>
-            </div>
+              <button
+                onClick={() => setSelectedService(service)}
+                className="mt-4 text-[#00ab9b] font-medium hover:underline"
+              >
+                View More →
+              </button>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {selectedService && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white max-w-md w-full p-6 rounded-2xl shadow-2xl relative scale-95"
+              initial={{ y: 50, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 50, opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.35 }}
+            >
+              <button
+                onClick={() => setSelectedService(null)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-xl font-bold"
+              >
+                &times;
+              </button>
+              <div className="text-center">
+                <div className="mb-4 text-[#00ab9b] flex justify-center text-3xl">
+                  {selectedService.icon}
+                </div>
+                <h3 className="text-2xl font-bold mb-2 text-[#00ab9b]">
+                  {selectedService.title}
+                </h3>
+                <p className="text-gray-700">{selectedService.details}</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
+    </div>
+    
   );
 };
 
