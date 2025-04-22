@@ -7,7 +7,7 @@ const Footer = () => {
         {/* Logo + Tagline */}
         <div className="space-y-4">
           <img
-            src="/src/assets/logo.png"
+            src="/public/logo.png"
             alt="Katalist Limited Logo"
             className="w-36 mx-auto md:mx-0"
           />
