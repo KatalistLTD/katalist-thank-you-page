@@ -7,7 +7,7 @@ const Footer = () => {
         {/* Logo + Tagline */}
         <div className="space-y-4">
           <img
-            src="/public/logo.png"
+            src="/logo.png"
             alt="Katalist Limited Logo"
             className="w-36 mx-auto md:mx-0"
           />
@@ -46,7 +46,7 @@ const Footer = () => {
 
       {/* Bottom bar */}
       <div className="border-t border-gray-100 py-6 text-center text-sm text-gray-500">
-        © 2025 <span className="text-[#00ab9b] font-semibold">Katalist Limited</span>. All rights reserved.
+        © 2025 <a href="https://katalistlimited.vercel.app"><span className="text-[#00ab9b] font-semibold">Katalist Limited</span></a>. All rights reserved.
       </div>
     </footer>
   );

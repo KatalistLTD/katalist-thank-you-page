@@ -114,6 +114,8 @@ const ThankYouPage = () => {
   </div>
 </motion.div>
 
+{/* Divider */}
+<div className="my-20 border-t border-gray-200" />
 
         {/* Services with animation */}
         <motion.div

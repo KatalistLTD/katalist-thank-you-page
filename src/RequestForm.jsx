@@ -3,7 +3,7 @@ import { useForm, ValidationError } from "@formspree/react";
 import {
   Globe, Wrench, BarChart3, Brain, Laptop2, MonitorCog,
   MessageCircleMore, SquareMousePointer, Check,
-  User, Headset, Mail,
+  User, Headset, Mail,ChevronDown,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -30,7 +30,7 @@ function CustomDropdown({ selected, setSelected }) {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative" id="contact" ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setOpen(!open)}
